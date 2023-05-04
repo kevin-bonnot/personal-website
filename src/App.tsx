@@ -1,15 +1,35 @@
-import './App.css'
+import './App.scss';
+import Project from './models/Project.ts';
+import Card from './components/Card.tsx';
 
 function App() {
+  const projects: Project[] = [
+    {
+      name: 'What2Watch',
+      description: 'Site de recherche de film permettant d\'enregistrer ses favoris',
+      tags: ['React', 'Next', 'Redux'],
+      image: './assets/what2watch.png',
+      externalUrl: 'https://what2watch.kevinbonnot.fr'
+    },
+    {
+      name: 'Démo three.js',
+      description: 'Test de three.js réaliser en suivant le cours Three.js Journey par Bruno Simon',
+      tags: ['JS', 'Three.js', '3D  '],
+      image: './assets/3d.png',
+      externalUrl: 'https://3d-text.kevinbonnot.fr'
+    }
+  ];
+
   return (
     <>
-      <h1>Kévin Bonnot</h1>
-      <h2>Fullstack developer</h2>
-      <h3>Mes projets</h3>
-      <a href="https://what2watch.kevinbonnot.fr">What2Watch</a>
-      <a href="https://3d-text.kevinbonnot.fr">Démo three.js</a>
+      <h1 className='MainTitle'>Kévin Bonnot</h1>
+      <h2 className='Job'>Fullstack developer</h2>
+      <h3 className='SubTitle'>Mes projets</h3>
+      <div className="ProjectContainer">
+        {projects.map(project => <Card key={project.name} project={project} />)}
+      </div>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

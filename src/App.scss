@@ -1,0 +1,16 @@
+.ProjectContainer {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+#root {
+    text-align: center;
+    .MainTitle {
+        text-transform: uppercase;
+    }
+    .Job {
+        font-style: italic;
+    }
+}
