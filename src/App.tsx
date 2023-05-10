@@ -28,6 +28,9 @@ function App() {
       <div className="ProjectContainer">
         {projects.map(project => <Card key={project.name} project={project} />)}
       </div>
+      <a href="https://www.linkedin.com/in/kevinbonnot">
+        <img src="./assets/linkedin.png" alt="Log LinkendIn" width="64" className="LogoLinkedin"/>
+      </a>
     </>
   );
 }
