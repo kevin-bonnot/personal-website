@@ -8,14 +8,14 @@ function App() {
       name: 'What2Watch',
       description: 'Site de recherche de film permettant d\'enregistrer ses favoris',
       tags: ['React', 'Next', 'Redux'],
-      image: './assets/what2watch.png',
+      image: './assets/what2watch.jpg',
       externalUrl: 'https://what2watch.kevinbonnot.fr'
     },
     {
       name: 'Démo three.js',
       description: 'Test de three.js réaliser en suivant le cours Three.js Journey par Bruno Simon',
       tags: ['JS', 'Three.js', '3D  '],
-      image: './assets/3d.png',
+      image: './assets/3d.jpg',
       externalUrl: 'https://3d-text.kevinbonnot.fr'
     }
   ];
