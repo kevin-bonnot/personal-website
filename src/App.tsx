@@ -2,6 +2,8 @@ import './App.scss';
 import Project from './models/Project.ts';
 import Card from './components/Card.tsx';
 import { useTranslation } from 'react-i18next';
+import {FormControl, InputLabel, MenuItem, Select, SelectChangeEvent} from "@mui/material";
+import {useEffect, useState} from "react";
 
 function App() {
   const projects: Project[] = [
@@ -21,10 +23,41 @@ function App() {
     }
   ];
 
-  const { t } = useTranslation();
+  const [language, setLanguage] = useState('');
+  const { t, i18n } = useTranslation();
+
+  useEffect(() => {
+    console.log(window.navigator.language);
+    if (window.navigator.language === 'fr-FR' || window.navigator.language === 'fr-FR') {
+      setLanguage('fr');
+    } else {
+      setLanguage('en');
+    }
+  }, []);
+
+  useEffect(() => {
+    i18n.changeLanguage(language);
+  }, [language]);
+
+  const handleLanguageChange = (event: SelectChangeEvent) => {
+    setLanguage(event.target.value);
+  };
 
   return (
     <>
+      <FormControl fullWidth>
+        <InputLabel id="lang-select-label">{t('language')}</InputLabel>
+        <Select
+          labelId="lang-select-label"
+          id="lang-select"
+          value={language}
+          label={t('language')}
+          onChange={handleLanguageChange}
+        >
+          <MenuItem value={'fr'}>{t('french')}</MenuItem>
+          <MenuItem value={'en'}>{t('english')}</MenuItem>
+        </Select>
+      </FormControl>
       <h1 className='MainTitle'>Kévin Bonnot</h1>
       <h2 className='Job'>{t('jobTitle')}</h2>
       <h3 className='SubTitle'>Mes projets</h3>
