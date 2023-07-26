@@ -1,6 +1,7 @@
 import './App.scss';
 import Project from './models/Project.ts';
 import Card from './components/Card.tsx';
+import { useTranslation } from 'react-i18next';
 
 function App() {
   const projects: Project[] = [
@@ -20,10 +21,12 @@ function App() {
     }
   ];
 
+  const { t } = useTranslation();
+
   return (
     <>
       <h1 className='MainTitle'>Kévin Bonnot</h1>
-      <h2 className='Job'>Fullstack developer</h2>
+      <h2 className='Job'>{t('jobTitle')}</h2>
       <h3 className='SubTitle'>Mes projets</h3>
       <div className="ProjectContainer">
         {projects.map(project => <Card key={project.name} project={project} />)}
