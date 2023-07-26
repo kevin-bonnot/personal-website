@@ -2,5 +2,15 @@
   "jobTitle": "Développeur fullstack",
   "language": "Langue",
   "french": "Français",
-  "english": "Anglais"
+  "english": "Anglais",
+  "w2w": {
+    "description": "Site de recherche de film/séries permettant d'enregistrer ses favoris",
+    "name": "What2Watch"
+  },
+  "three": {
+    "description": "Test de three.js réaliser en suivant le cours Three.js Journey par Bruno Simon",
+    "name": "Démo three.js"
+  },
+  "myProjects": "My projects",
+  "visit": "Visit"
 }
