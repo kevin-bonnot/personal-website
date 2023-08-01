@@ -5,3 +5,8 @@
   background-color: black;
   color: white;
 }
+
+body, html {
+  margin: 0;
+  padding: 0;
+}
