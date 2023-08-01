@@ -4,7 +4,7 @@ import {Group} from 'three';
 import {Html} from '@react-three/drei';
 import Project from '../../models/Project.ts';
 import {useTranslation} from 'react-i18next';
-import Card from '../Card.tsx';
+import ProjectCard from '../ProjectCard.tsx';
 import {useControls} from 'leva';
 
 const ThreeCanvas = () => {
@@ -68,7 +68,7 @@ const ThreeCanvas = () => {
             pointerEvents: 'none', // Cela permettra de cliquer à travers la div si nécessaire
           }}
         >
-          <Card project={projects[0]}/>
+          <ProjectCard project={projects[0]}/>
         </div>
       </Html>
       <Html transform position={[Math.sin(Math.PI * 2 / 3) * 5, 0, Math.cos(Math.PI * 2 / 3) * 5]} rotation-y={Math.PI * 2 / 3}>
@@ -84,7 +84,7 @@ const ThreeCanvas = () => {
             pointerEvents: 'none', // Cela permettra de cliquer à travers la div si nécessaire
           }}
         >
-          <Card project={projects[1]}/>
+          <ProjectCard project={projects[1]}/>
         </div>
       </Html>
       <Html transform position={[Math.sin(Math.PI * 4 / 3) * 5, 0, Math.cos(Math.PI * 4 / 3) * 5]} rotation-y={Math.PI * 4 / 3}>
@@ -100,7 +100,7 @@ const ThreeCanvas = () => {
             pointerEvents: 'none', // Cela permettra de cliquer à travers la div si nécessaire
           }}
         >
-          <Card project={projects[1]}/>
+          <ProjectCard project={projects[1]}/>
         </div>
       </Html>
     </group>
