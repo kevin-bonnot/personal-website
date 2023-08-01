@@ -2,8 +2,10 @@ import './App.scss';
 import Project from './models/Project.ts';
 import Card from './components/Card.tsx';
 import { useTranslation } from 'react-i18next';
-import {Container, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent} from '@mui/material';
+import {Button, Container, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent} from '@mui/material';
 import {useEffect, useState} from 'react';
+import ThreeCanvas from './components/three/ThreeCanvas.tsx';
+import {Canvas} from '@react-three/fiber';
 
 function App() {
   const [language, setLanguage] = useState('');
@@ -43,6 +45,12 @@ function App() {
     setLanguage(event.target.value);
   };
 
+  const [rotation, setRotation] = useState(0);
+
+  const handleNext = () => {
+    setRotation(rotation + (Math.PI * 2 / 3));
+  };
+
   return (
     <Container>
       <FormControl fullWidth>
@@ -60,6 +68,12 @@ function App() {
       </FormControl>
       <h1 className='MainTitle'>Kévin Bonnot {t('jobTitle')}</h1>
       <h2 className='SubTitle'>{t('myProjects')}</h2>
+      <Button onClick={handleNext}>Next project</Button>
+      <Canvas className='Canvas'>
+        <ThreeCanvas></ThreeCanvas>
+        <camera position-z={-20} />
+        {/*<OrbitControls />*/}
+      </Canvas>
       <div className="ProjectContainer">
         {projects.map(project => <Card key={project.name} project={project} />)}
       </div>
@@ -71,3 +85,5 @@ function App() {
 }
 
 export default App;
+
+
