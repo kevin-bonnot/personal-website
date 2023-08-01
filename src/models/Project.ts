@@ -4,6 +4,7 @@ interface Project {
   image: string;
   tags: string[];
   externalUrl: string;
+  github?: string;
 }
 
 export default Project;

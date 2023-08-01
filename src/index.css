@@ -2,5 +2,11 @@
   font-family: "Roboto Light", system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-  background-color: #F6F6F6;
+  background-color: black;
+  color: white;
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
 }
