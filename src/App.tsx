@@ -20,10 +20,11 @@ import {useEffect, useState} from 'react';
 import ThreeCanvas from './components/three/ThreeCanvas.tsx';
 import {Canvas} from '@react-three/fiber';
 import {darkThemeOptions} from './themes/dark.ts';
+import {OrbitControls} from "@react-three/drei";
 
 function App() {
   const [language, setLanguage] = useState('');
-  const { t, i18n } = useTranslation();
+  const {t, i18n} = useTranslation();
 
   const projects: Project[] = [
     {
@@ -64,7 +65,7 @@ function App() {
   const [rotation, setRotation] = useState(0);
 
   const handleNext = () => {
-    setRotation(rotation + (Math.PI * 2 / 3));
+    setRotation(rotation + Math.PI);
   };
 
   return (
@@ -72,18 +73,30 @@ function App() {
       <AppBar position='sticky'>
         <Typography variant='h3'>Kévin Bonnot - {t('jobTitle')}</Typography>
       </AppBar>
-      <Container sx={{paddingBottom: 12}}>
+      {/*<Container sx={{paddingBottom: 12}}>*/}
         <h2 className='SubTitle'>{t('myProjects')}</h2>
         <Button onClick={handleNext}>Next project</Button>
-        <Canvas className='Canvas'>
-          <ThreeCanvas></ThreeCanvas>
-          <camera position-z={-20} />
-          {/*<OrbitControls />*/}
+        <Canvas
+          style={{
+            height: '100%',
+            width: '100%',
+          }}
+          shadows
+          className='Canvas'
+          camera={{
+            fov: 45,
+            near: 0.1,
+            far: 200,
+            position: [0, 0, 15]
+          }}
+        >
+          <ThreeCanvas groupRotation={rotation} projects={projects}></ThreeCanvas>
+          <OrbitControls/>
         </Canvas>
-        <div className="ProjectContainer">
-          {projects.map(project => <ProjectCard key={project.name} project={project}/>)}
-        </div>
-      </Container>
+      {/*  <div className="ProjectContainer">*/}
+      {/*    {projects.map(project => <ProjectCard key={project.name} project={project}/>)}*/}
+      {/*  </div>*/}
+      {/*</Container>*/}
       <AppBar position={'fixed'} sx={{bottom: 0, top: 'auto', paddingY: 2}}>
         <Toolbar sx={{gap: 2}}>
           <a href="https://www.linkedin.com/in/kevinbonnot" target='_blank'>
@@ -92,7 +105,8 @@ function App() {
           <a href="https://github.com/kevin-bonnot" target='_blank'>
             <img src="./assets/github.png" alt="Log github" width="48" className="LogoLinkedin"/>
           </a>
-          <Typography sx={{marginLeft: 'auto'}}>© Kévin Bonnot, {(new Date()).getFullYear()} - ({t('underConstruction')})</Typography>
+          <Typography sx={{marginLeft: 'auto'}}>© Kévin Bonnot, {(new Date()).getFullYear()} -
+            ({t('underConstruction')})</Typography>
           <FormControl fullWidth={false} sx={{marginLeft: 'auto'}}>
             <InputLabel id="lang-select-label">{t('language')}</InputLabel>
             <Select

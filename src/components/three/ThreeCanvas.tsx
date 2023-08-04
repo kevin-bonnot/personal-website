@@ -6,43 +6,46 @@ import Project from '../../models/Project.ts';
 import {useTranslation} from 'react-i18next';
 import ProjectCard from '../ProjectCard.tsx';
 import {useControls} from 'leva';
+import {ComputerModel} from './models/ComputerModel.tsx';
 
-const ThreeCanvas = () => {
-  const {t} = useTranslation();
-  const projects: Project[] = [
-    {
-      name: t('w2w.name'),
-      description: t('w2w.description'),
-      tags: ['React', 'Next', 'Redux'],
-      image: './assets/what2watch.jpg',
-      externalUrl: 'https://what2watch.kevinbonnot.fr'
-    },
-    {
-      name: t('three.name'),
-      description: t('three.description'),
-      tags: ['JS', 'Three.js', '3D'],
-      image: './assets/3d.jpg',
-      externalUrl: 'https://3d-text.kevinbonnot.fr'
-    }
-  ];
+type CustomProps = {
+  groupRotation: number;
+  projects: Project[];
+}
 
-  const {position} = useControls('HTML frames', {
-    'position': {
-      value: 3.6,
-      min: 0,
+const ThreeCanvas = ({groupRotation, projects}: CustomProps) => {
+
+  const {positionX, positionY, positionZ, rotationY} = useControls('Computers postions', {
+    'positionX': {
+      value: 0,
+      min: -10,
       max: 10
+    },
+    'positionY': {
+      value: 0,
+      min: -10,
+      max: 10
+    },
+    'positionZ': {
+      value: 4,
+      min: -10,
+      max: 10
+    },
+    'rotationY': {
+      value:Math.PI,
+      min: -Math.PI,
+      max: Math.PI
     }
   });
 
   const group = useRef<Group>(null!);
 
-  // useFrame((_, delta) => {
-  //   group.current.rotation.y += (groupRotation - group.current.rotation.y) * 0.05;
-  // });
+  useFrame((_, delta) => {
+    group.current.rotation.y += (groupRotation - group.current.rotation.y) * 0.05;
+  });
 
   useFrame((_, delta) => {
-    group.current.rotation.y += delta;
-
+    // group.current.rotation.y += delta;
   });
   const {size} = useThree();
 
@@ -53,57 +56,62 @@ const ThreeCanvas = () => {
   return <>
     <ambientLight/>
     <pointLight position={[10, 10, 10]}/>
-    <axesHelper />
-    <group ref={group} position-z={-10}>
-      <Html transform position={[(Math.sin(0) * 5) - position, 0, Math.cos(0) * 5]} scale={[1, 1, 1]}>
-        <div
-          style={{
-            position: 'absolute',
-            width: divWidth,
-            height: divHeight,
-            backgroundColor: 'rgba(255, 255, 255, 0.8)',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            pointerEvents: 'none', // Cela permettra de cliquer à travers la div si nécessaire
-          }}
-        >
-          <ProjectCard project={projects[0]}/>
-        </div>
-      </Html>
-      <Html transform position={[Math.sin(Math.PI * 2 / 3) * 5, 0, Math.cos(Math.PI * 2 / 3) * 5]} rotation-y={Math.PI * 2 / 3}>
-        <div
-          style={{
-            position: 'absolute',
-            width: divWidth,
-            height: divHeight,
-            backgroundColor: 'rgba(255, 255, 255, 0.8)',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            pointerEvents: 'none', // Cela permettra de cliquer à travers la div si nécessaire
-          }}
-        >
-          <ProjectCard project={projects[1]}/>
-        </div>
-      </Html>
-      <Html transform position={[Math.sin(Math.PI * 4 / 3) * 5, 0, Math.cos(Math.PI * 4 / 3) * 5]} rotation-y={Math.PI * 4 / 3}>
-        <div
-          style={{
-            position: 'absolute',
-            width: divWidth,
-            height: divHeight,
-            backgroundColor: 'rgba(255, 255, 255, 0.8)',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            pointerEvents: 'none', // Cela permettra de cliquer à travers la div si nécessaire
-          }}
-        >
-          <ProjectCard project={projects[1]}/>
-        </div>
-      </Html>
+    <axesHelper/>
+    <group ref={group}>
+      <ComputerModel position={[positionX, positionY, positionZ]} rotation={[0, rotationY, 0]} scale={[2, 2, 2]} project={projects[0]}/>
+      <ComputerModel position={[positionX, positionY, -positionZ]} rotation={[0, 0, 0]} scale={[2, 2, 2]} project={projects[1]}/>
     </group>
+    {/*<ComputerModel position={[positionX, positionY, positionZ]} rotation={[0, rotationY, 0]} scale={[2, 2, 2]}/>*/}
+    {/*<group ref={group} position-z={-10}>*/}
+    {/*  <Html transform position={[(Math.sin(0) * 5) - position, 0, Math.cos(0) * 5]} scale={[1, 1, 1]}>*/}
+    {/*    <div*/}
+    {/*      style={{*/}
+    {/*        position: 'absolute',*/}
+    {/*        width: divWidth,*/}
+    {/*        height: divHeight,*/}
+    {/*        backgroundColor: 'rgba(255, 255, 255, 0.8)',*/}
+    {/*        display: 'flex',*/}
+    {/*        justifyContent: 'center',*/}
+    {/*        alignItems: 'center',*/}
+    {/*        pointerEvents: 'none', // Cela permettra de cliquer à travers la div si nécessaire*/}
+    {/*      }}*/}
+    {/*    >*/}
+    {/*      <ProjectCard project={projects[0]}/>*/}
+    {/*    </div>*/}
+    {/*  </Html>*/}
+    {/*  <Html transform position={[Math.sin(Math.PI * 2 / 3) * 5, 0, Math.cos(Math.PI * 2 / 3) * 5]} rotation-y={Math.PI * 2 / 3}>*/}
+    {/*    <div*/}
+    {/*      style={{*/}
+    {/*        position: 'absolute',*/}
+    {/*        width: divWidth,*/}
+    {/*        height: divHeight,*/}
+    {/*        backgroundColor: 'rgba(255, 255, 255, 0.8)',*/}
+    {/*        display: 'flex',*/}
+    {/*        justifyContent: 'center',*/}
+    {/*        alignItems: 'center',*/}
+    {/*        pointerEvents: 'none', // Cela permettra de cliquer à travers la div si nécessaire*/}
+    {/*      }}*/}
+    {/*    >*/}
+    {/*      <ProjectCard project={projects[1]}/>*/}
+    {/*    </div>*/}
+    {/*  </Html>*/}
+    {/*  <Html transform position={[Math.sin(Math.PI * 4 / 3) * 5, 0, Math.cos(Math.PI * 4 / 3) * 5]} rotation-y={Math.PI * 4 / 3}>*/}
+    {/*    <div*/}
+    {/*      style={{*/}
+    {/*        position: 'absolute',*/}
+    {/*        width: divWidth,*/}
+    {/*        height: divHeight,*/}
+    {/*        backgroundColor: 'rgba(255, 255, 255, 0.8)',*/}
+    {/*        display: 'flex',*/}
+    {/*        justifyContent: 'center',*/}
+    {/*        alignItems: 'center',*/}
+    {/*        pointerEvents: 'none', // Cela permettra de cliquer à travers la div si nécessaire*/}
+    {/*      }}*/}
+    {/*    >*/}
+    {/*      <ProjectCard project={projects[1]}/>*/}
+    {/*    </div>*/}
+    {/*  </Html>*/}
+    {/*</group>*/}
     {/* Plan 3D */}
   </>;
 };
