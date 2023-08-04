@@ -11,14 +11,19 @@ import {
   MenuItem,
   Select,
   SelectChangeEvent,
-  ThemeProvider, Toolbar, Typography
+  ThemeProvider,
+  Toolbar,
+  Typography,
+  Button
 } from '@mui/material';
 import {useEffect, useState} from 'react';
+import ThreeCanvas from './components/three/ThreeCanvas.tsx';
+import {Canvas} from '@react-three/fiber';
 import {darkThemeOptions} from './themes/dark.ts';
 
 function App() {
   const [language, setLanguage] = useState('');
-  const {t, i18n} = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const projects: Project[] = [
     {
@@ -26,8 +31,7 @@ function App() {
       description: t('w2w.description'),
       tags: ['React', 'Next', 'Redux'],
       image: './assets/what2watch.jpg',
-      externalUrl: 'https://what2watch.kevinbonnot.fr',
-      github: 'https://github.com/kevin-bonnot/what-2-watch-next',
+      externalUrl: 'https://what2watch.kevinbonnot.fr'
     },
     {
       name: t('three.name'),
@@ -57,6 +61,12 @@ function App() {
 
   const darkTheme = createTheme(darkThemeOptions);
 
+  const [rotation, setRotation] = useState(0);
+
+  const handleNext = () => {
+    setRotation(rotation + (Math.PI * 2 / 3));
+  };
+
   return (
     <ThemeProvider theme={darkTheme}>
       <AppBar position='sticky'>
@@ -64,6 +74,12 @@ function App() {
       </AppBar>
       <Container sx={{paddingBottom: 12}}>
         <h2 className='SubTitle'>{t('myProjects')}</h2>
+        <Button onClick={handleNext}>Next project</Button>
+        <Canvas className='Canvas'>
+          <ThreeCanvas></ThreeCanvas>
+          <camera position-z={-20} />
+          {/*<OrbitControls />*/}
+        </Canvas>
         <div className="ProjectContainer">
           {projects.map(project => <ProjectCard key={project.name} project={project}/>)}
         </div>
