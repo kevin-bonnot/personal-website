@@ -7,7 +7,7 @@ import {Html, useGLTF} from '@react-three/drei';
 import { GLTF } from 'three-stdlib';
 import Project from '../../../models/Project.ts';
 import ProjectCard from '../../ProjectCard.tsx';
-import {useControls} from "leva";
+import {useControls} from 'leva';
 
 type GLTFResult = GLTF & {
   nodes: {

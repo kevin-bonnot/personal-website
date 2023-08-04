@@ -1,10 +1,7 @@
-import {useFrame, useThree} from '@react-three/fiber';
+import {useFrame} from '@react-three/fiber';
 import {useRef} from 'react';
 import {Group} from 'three';
-import {Html} from '@react-three/drei';
 import Project from '../../models/Project.ts';
-import {useTranslation} from 'react-i18next';
-import ProjectCard from '../ProjectCard.tsx';
 import {useControls} from 'leva';
 import {ComputerModel} from './models/ComputerModel.tsx';
 
@@ -40,18 +37,18 @@ const ThreeCanvas = ({groupRotation, projects}: CustomProps) => {
 
   const group = useRef<Group>(null!);
 
-  useFrame((_, delta) => {
+  useFrame(() => {
     group.current.rotation.y += (groupRotation - group.current.rotation.y) * 0.05;
   });
-
-  useFrame((_, delta) => {
-    // group.current.rotation.y += delta;
-  });
-  const {size} = useThree();
+  //
+  // useFrame((_, delta) => {
+  //   // group.current.rotation.y += delta;
+  // });
+  // const {size} = useThree();
 
   // Calculer la taille de la div par rapport à la taille de l'écran
-  const divWidth = size.width / 4;
-  const divHeight = size.height / 4;
+  // const divWidth = size.width / 4;
+  // const divHeight = size.height / 4;
 
   return <>
     <ambientLight/>

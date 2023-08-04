@@ -1,10 +1,8 @@
 import './App.scss';
 import Project from './models/Project.ts';
-import ProjectCard from './components/ProjectCard.tsx';
 import {useTranslation} from 'react-i18next';
 import {
   AppBar,
-  Container,
   createTheme,
   FormControl,
   InputLabel,
@@ -20,7 +18,7 @@ import {useEffect, useState} from 'react';
 import ThreeCanvas from './components/three/ThreeCanvas.tsx';
 import {Canvas} from '@react-three/fiber';
 import {darkThemeOptions} from './themes/dark.ts';
-import {OrbitControls} from "@react-three/drei";
+import {OrbitControls} from '@react-three/drei';
 
 function App() {
   const [language, setLanguage] = useState('');
