@@ -8,6 +8,8 @@ import { GLTF } from 'three-stdlib';
 import Project from '../../../models/Project.ts';
 import ProjectCard from '../../ProjectCard.tsx';
 import {useControls} from 'leva';
+import { useRef } from 'react';
+import { Group } from 'three';
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -37,7 +39,7 @@ type CustomProps = JSX.IntrinsicElements['group'] & {
 };
 
 export const ComputerModel = (props: CustomProps) => {
-  const { nodes, materials } = useGLTF('/models/Computer.glb') as GLTFResult;
+  const { nodes, materials } = useGLTF('/models/mac-draco.glb') as GLTFResult & any;
 
   const {positionX, positionY, positionZ, scaleX, scaleY} = useControls('HTML frames', {
     'positionX': {
@@ -74,113 +76,129 @@ export const ComputerModel = (props: CustomProps) => {
 
   return (
     <group {...props} dispose={null}>
-      <axesHelper />
-      <group
-        position={[0, 0, 0]}
-        rotation={[Math.PI, 0, Math.PI]}
-        scale={1.418}
-      >
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.Cube020.geometry}
-          material={materials.Monitor_Display}
-        />
-          <Html transform position={[positionX, positionY, positionZ]} scale={[scaleX, scaleY, 1]} occlude>
-            <div
-              style={{
-                position: 'absolute',
-                width: 100,
-                height: 100,
-                backgroundColor: 'rgba(255, 255, 255, 0.8)',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                pointerEvents: 'none', // Cela permettra de cliquer à travers la div si nécessaire
-              }}
-            >
-              <ProjectCard project={props.project}/>
-            </div>
-          </Html>
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.Cube020_1.geometry}
-          material={materials.Monitor_common}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.Keyboard.geometry}
-          material={materials.Keyboard}
-          position={[-0.112, -0.851, 1.914]}
-          rotation={[0, -0.019, 0]}
-          scale={[0.705, 0.705, 0.541]}
-        >
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes.Keyboard_buttons.geometry}
-            material={materials.Keyboard_buttons}
-            position={[-0.872, 0.064, -2.481]}
-            scale={[3.788, 2.068, 4.942]}
-          >
-            <mesh
-              castShadow
-              receiveShadow
-              geometry={nodes.Cube003.geometry}
-              material={materials.Keyboard_buttons}
-              position={[0.067, 0, 0]}
-            />
-            <mesh
-              castShadow
-              receiveShadow
-              geometry={nodes.Cube005.geometry}
-              material={materials.Keyboard_buttons}
-              position={[0.22, 0, 0]}
-            />
-            <mesh
-              castShadow
-              receiveShadow
-              geometry={nodes.Cube006.geometry}
-              material={materials.Keyboard_buttons}
-              position={[0.371, 0, 0]}
-            />
-            <mesh
-              castShadow
-              receiveShadow
-              geometry={nodes.Cube007.geometry}
-              material={materials.Keyboard_buttons}
-              position={[0.044, 0, 0.059]}
-            />
-            <mesh
-              castShadow
-              receiveShadow
-              geometry={nodes.Cube008.geometry}
-              material={materials.Keyboard_buttons}
-              position={[0.028, 0, 0.099]}
-            />
-            <mesh
-              castShadow
-              receiveShadow
-              geometry={nodes.Cube009.geometry}
-              material={materials.Keyboard_buttons}
-              position={[0.045, 0, 0.139]}
-            />
+      <group rotation-x={-0.425} position={[0, -0.04, 0.41]}>
+        <group position={[0, 2.96, -0.13]} rotation={[Math.PI / 2, 0, 0]}>
+          <mesh material={materials.aluminium} geometry={nodes['Cube008'].geometry} />
+          <mesh material={materials['matte.001']} geometry={nodes['Cube008_1'].geometry} />
+          <mesh geometry={nodes['Cube008_2'].geometry}>
+            {/* Drei's HTML component can "hide behind" canvas geometry */}
+            <Html className="content" rotation-x={-Math.PI / 2} position={[0, 0.05, -0.09]} transform occlude>
+              <div className="wrapper" onPointerDown={(e) => e.stopPropagation()}>
+                <ProjectCard project={props.project} />
+              </div>
+            </Html>
           </mesh>
-        </mesh>
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.Mouse.geometry}
-          material={materials.Mouse}
-          position={[1.119, -1.015, 0.957]}
-          rotation={[0, -1.027, 0]}
-          scale={0.705}
-        />
+        </group>
       </group>
+      <mesh material={materials.keys} geometry={nodes.keyboard.geometry} position={[1.79, 0, 3.45]} />
+      <group position={[0, -0.1, 3.39]}>
+        <mesh material={materials.aluminium} geometry={nodes['Cube002'].geometry} />
+        <mesh material={materials.trackpad} geometry={nodes['Cube002_1'].geometry} />
+      </group>
+      <mesh material={materials.touchbar} geometry={nodes.touchbar.geometry} position={[0, -0.03, 1.2]} />
     </group>
-  );
+  )
+
+  // return (
+  //   <group {...props} dispose={null}>
+  //     <axesHelper />
+  //     <group
+  //       position={[0, 0, 0]}
+  //       rotation={[Math.PI, 0, Math.PI]}
+  //       scale={1.418}
+  //     >
+  //       <mesh
+  //         castShadow
+  //         receiveShadow
+  //         geometry={nodes.Cube020.geometry}
+  //         material={materials.Monitor_Display}
+  //       />
+  //         <Html transform position={[positionX, positionY, positionZ]} scale={[scaleX, scaleY, 1]} occlude>
+  //           <div
+              
+  //           >
+  //             <ProjectCard project={props.project}/>
+  //           </div>
+  //         </Html>
+  //       <mesh
+  //         castShadow
+  //         receiveShadow
+  //         geometry={nodes.Cube020_1.geometry}
+  //         material={materials.Monitor_common}
+  //       />
+  //       <mesh
+  //         castShadow
+  //         receiveShadow
+  //         geometry={nodes.Keyboard.geometry}
+  //         material={materials.Keyboard}
+  //         position={[-0.112, -0.851, 1.914]}
+  //         rotation={[0, -0.019, 0]}
+  //         scale={[0.705, 0.705, 0.541]}
+  //       >
+  //         <mesh
+  //           castShadow
+  //           receiveShadow
+  //           geometry={nodes.Keyboard_buttons.geometry}
+  //           material={materials.Keyboard_buttons}
+  //           position={[-0.872, 0.064, -2.481]}
+  //           scale={[3.788, 2.068, 4.942]}
+  //         >
+  //           <mesh
+  //             castShadow
+  //             receiveShadow
+  //             geometry={nodes.Cube003.geometry}
+  //             material={materials.Keyboard_buttons}
+  //             position={[0.067, 0, 0]}
+  //           />
+  //           <mesh
+  //             castShadow
+  //             receiveShadow
+  //             geometry={nodes.Cube005.geometry}
+  //             material={materials.Keyboard_buttons}
+  //             position={[0.22, 0, 0]}
+  //           />
+  //           <mesh
+  //             castShadow
+  //             receiveShadow
+  //             geometry={nodes.Cube006.geometry}
+  //             material={materials.Keyboard_buttons}
+  //             position={[0.371, 0, 0]}
+  //           />
+  //           <mesh
+  //             castShadow
+  //             receiveShadow
+  //             geometry={nodes.Cube007.geometry}
+  //             material={materials.Keyboard_buttons}
+  //             position={[0.044, 0, 0.059]}
+  //           />
+  //           <mesh
+  //             castShadow
+  //             receiveShadow
+  //             geometry={nodes.Cube008.geometry}
+  //             material={materials.Keyboard_buttons}
+  //             position={[0.028, 0, 0.099]}
+  //           />
+  //           <mesh
+  //             castShadow
+  //             receiveShadow
+  //             geometry={nodes.Cube009.geometry}
+  //             material={materials.Keyboard_buttons}
+  //             position={[0.045, 0, 0.139]}
+  //           />
+  //         </mesh>
+  //       </mesh>
+  //       <mesh
+  //         castShadow
+  //         receiveShadow
+  //         geometry={nodes.Mouse.geometry}
+  //         material={materials.Mouse}
+  //         position={[1.119, -1.015, 0.957]}
+  //         rotation={[0, -1.027, 0]}
+  //         scale={0.705}
+  //       />
+  //     </group>
+  //   </group>
+  // );
 };
 
 useGLTF.preload('/Computer.glb');

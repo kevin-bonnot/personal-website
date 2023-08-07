@@ -51,12 +51,9 @@ const ThreeCanvas = ({groupRotation, projects}: CustomProps) => {
   // const divHeight = size.height / 4;
 
   return <>
-    <ambientLight/>
-    <pointLight position={[10, 10, 10]}/>
-    <axesHelper/>
     <group ref={group}>
-      <ComputerModel position={[positionX, positionY, positionZ]} rotation={[0, rotationY, 0]} scale={[2, 2, 2]} project={projects[0]}/>
-      <ComputerModel position={[positionX, positionY, -positionZ]} rotation={[0, 0, 0]} scale={[2, 2, 2]} project={projects[1]}/>
+      <ComputerModel position={[0, 1, 0]} rotation={[0, Math.PI, 0]} project={projects[0]}/>
+      {/* <ComputerModel position={[positionX, positionY, -positionZ]} rotation={[0, 0, 0]} scale={[2, 2, 2]} project={projects[1]}/> */}
     </group>
     {/*<ComputerModel position={[positionX, positionY, positionZ]} rotation={[0, rotationY, 0]} scale={[2, 2, 2]}/>*/}
     {/*<group ref={group} position-z={-10}>*/}

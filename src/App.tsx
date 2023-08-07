@@ -14,7 +14,7 @@ import {
   Typography,
   Button
 } from '@mui/material';
-import {useEffect, useState} from 'react';
+import {Suspense, useEffect, useState} from 'react';
 import ThreeCanvas from './components/three/ThreeCanvas.tsx';
 import {Canvas} from '@react-three/fiber';
 import {darkThemeOptions} from './themes/dark.ts';
@@ -82,13 +82,14 @@ function App() {
           shadows
           className='Canvas'
           camera={{
-            fov: 45,
-            near: 0.1,
-            far: 200,
-            position: [0, 0, 15]
+            fov: 55,
+            position: [-5, 0, -15]
           }}
         >
-          <ThreeCanvas groupRotation={rotation} projects={projects}></ThreeCanvas>
+          <pointLight position={[10, 10, 10]} intensity={1.5} />
+          <Suspense fallback={null}>
+            <ThreeCanvas groupRotation={rotation} projects={projects}></ThreeCanvas>
+          </Suspense>
           <OrbitControls/>
         </Canvas>
       {/*  <div className="ProjectContainer">*/}
