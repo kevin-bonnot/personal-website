@@ -4,13 +4,13 @@ export const darkThemeOptions: ThemeOptions = {
   palette: {
     mode: 'dark',
     primary: {
-      main: '#5800A1',
+      main: '#BB82F5',
     },
     secondary: {
-      main: '#f50057',
+      main: '#BB82F5',
     },
     text: {
-      secondary: '#5800A1',
+      secondary: '#BB82F5',
     },
     background: {
       default: '#000000',
@@ -18,13 +18,20 @@ export const darkThemeOptions: ThemeOptions = {
   },
   typography: {
     h1: {
-      fontFamily: 'Abril Fatface',
+      fontFamily: 'Oswald',
+      textTransform: 'uppercase'
     },
     h2: {
-      fontFamily: 'Abril Fatface',
+      fontFamily: 'Oswald',
+      textTransform: 'uppercase',
+      color: '#BB82F5',
     },
     h3: {
-      fontFamily: 'Abril Fatface',
+      fontFamily: 'Oswald',
     },
+    body1: {
+      fontSize: 24,
+      lineHeight: 1.75
+    }
   },
 };

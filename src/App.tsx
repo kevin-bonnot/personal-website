@@ -1,24 +1,29 @@
 import './App.scss';
 import Project from './models/Project.ts';
 import ProjectCard from './components/ProjectCard.tsx';
-import {useTranslation} from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import {
-  AppBar,
+  Box,
   Container,
   createTheme,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
+  Divider,
+  Fab,
+  Fade,
+  Link,
   SelectChangeEvent,
-  ThemeProvider, Toolbar, Typography
+  ThemeProvider,
+  Typography,
+  useScrollTrigger,
 } from '@mui/material';
-import {useEffect, useState} from 'react';
-import {darkThemeOptions} from './themes/dark.ts';
+import { ReactElement, useEffect, useState } from 'react';
+import { darkThemeOptions } from './themes/dark.ts';
+import Contact from './components/Contact.tsx';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+
 
 function App() {
   const [language, setLanguage] = useState('');
-  const {t, i18n} = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const projects: Project[] = [
     {
@@ -49,7 +54,7 @@ function App() {
 
   useEffect(() => {
     i18n.changeLanguage(language);
-  }, [language]);
+  }, [language, i18n]);
 
   const handleLanguageChange = (event: SelectChangeEvent) => {
     setLanguage(event.target.value);
@@ -59,42 +64,60 @@ function App() {
 
   return (
     <ThemeProvider theme={darkTheme}>
-      <AppBar position='sticky'>
-        <Typography variant='h3'>Kévin Bonnot - {t('jobTitle')}</Typography>
-      </AppBar>
-      <Container sx={{paddingBottom: 12}}>
-        <h2 className='SubTitle'>{t('myProjects')}</h2>
-        <div className="ProjectContainer">
-          {projects.map(project => <ProjectCard key={project.name} project={project}/>)}
+      <Container sx={{ paddingBottom: 12 }} id="top-anchor">
+        <div className="hero">
+          <Typography variant='h1' textAlign='center'>Kévin Bonnot</Typography>
+          <Typography variant='h2' textAlign='center' className='Job'>{t('jobTitle')}</Typography>
+          <Typography variant='body1' marginY='100px'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</Typography>
+          <div className="menu">
+            <ul>
+              <li><Link color='secondary' href='#projects'>{t('myProjects')}</Link></li>
+              <li><Link color='secondary' href='#experience'>{t('myExperience')}</Link></li>
+              <li><Link color='secondary' href='#contact'>{t('contactMe')}</Link></li>
+            </ul>
+          </div>
         </div>
+        <section className="sectionContainer" id='projects'>
+          <Typography variant='h2'>{t('myProjects')}</Typography>
+          {projects.map((project, index) => <>{index !== 0 && <Divider variant='middle' sx={{marginBottom: 3}}/>}<ProjectCard key={project.name} project={project} side={index % 2 === 0 ? 'left' : 'right'} /></>)}
+        </section>
+        <section className="sectionContainer" id='experience'>
+          <Typography variant='h2'>{t('myExperience')}</Typography>
+        </section>
+        <Contact />
       </Container>
-      <AppBar position={'fixed'} sx={{bottom: 0, top: 'auto', paddingY: 2}}>
-        <Toolbar sx={{gap: 2}}>
-          <a href="https://www.linkedin.com/in/kevinbonnot" target='_blank'>
-            <img src="./assets/linkedin.png" alt="Log LinkendIn" width="48" className="LogoLinkedin"/>
-          </a>
-          <a href="https://github.com/kevin-bonnot" target='_blank'>
-            <img src="./assets/github.png" alt="Log github" width="48" className="LogoLinkedin"/>
-          </a>
-          <Typography sx={{marginLeft: 'auto'}}>© Kévin Bonnot, {(new Date()).getFullYear()} - ({t('underConstruction')})</Typography>
-          <FormControl fullWidth={false} sx={{marginLeft: 'auto'}}>
-            <InputLabel id="lang-select-label">{t('language')}</InputLabel>
-            <Select
-              labelId="lang-select-label"
-              id="lang-select"
-              value={language}
-              label={t('language')}
-              onChange={handleLanguageChange}
-            >
-              <MenuItem value={'fr'}>{t('french')}</MenuItem>
-              <MenuItem value={'en'}>{t('english')}</MenuItem>
-            </Select>
-          </FormControl>
-        </Toolbar>
-
-      </AppBar>
+      <ScrollTop>
+        <Fab size="small" aria-label="scroll back to top">
+          <KeyboardArrowUpIcon />
+        </Fab>
+      </ScrollTop>
     </ThemeProvider>
   );
 }
+
+const ScrollTop = ({children}: {children: ReactElement}) => {
+  const trigger = useScrollTrigger({
+    target: window,
+    disableHysteresis: true,
+    threshold: 100,
+  });
+
+  const handleClick = () => {
+      const anchor = document.getElementById('top-anchor');
+
+      if (anchor) {
+        anchor.scrollIntoView();
+      }
+  };
+  
+  return <Fade in={trigger}>
+    <Box
+      sx={{ position: 'fixed', bottom: 16, right: 16 }}
+      onClick={handleClick}
+    >
+      {children}
+    </Box>
+  </Fade>;
+};
 
 export default App;

@@ -1,16 +1,20 @@
-.ProjectContainer {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    flex-wrap: wrap;
+.sectionContainer {
+    min-height: 100vh;
 }
 
 #root {
-    .MainTitle {
-        text-transform: uppercase;
-        color: #5800A1;
+    .hero {
+        height: 100vh;
     }
-    .Job {
-        font-style: italic;
+
+    .menu {
+        ul {
+            padding: 0;
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            font-size: 28px;
+        }
     }
 }

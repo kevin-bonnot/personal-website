@@ -11,7 +11,9 @@
     "description": "Three.js test carried out following the Three.js course by Bruno Simon",
     "name": "Three.js demo"
   },
-  "myProjects": "Mes projets",
+  "myProjects": "My projects",
   "visit": "Visit",
-  "underConstruction": "Under construction"
+  "underConstruction": "Under construction",
+  "myExperience": "My experience",
+  "contactMe": "Contact me"
 }

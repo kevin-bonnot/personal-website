@@ -1,33 +1,37 @@
 import Project from '../models/Project.ts';
 import './ProjectCard.scss';
 import {useTranslation} from 'react-i18next';
-import {Button, Card, CardActions, CardContent, CardMedia} from '@mui/material';
+import {Box, Button, Chip, Typography} from '@mui/material';
 
-const ProjectCard = ({project}: {project: Project}) => {
+const ProjectCard = ({project, side}: {project: Project, side: 'left' | 'right'}) => {
   const {t} = useTranslation();
 
-  return (<Card>
-    <CardMedia
-      sx={{height: 184}}
-      image={project.image}
-      title={project.name}
+  return <div className='cardContainer' style={{
+    flexDirection: side === 'left' ? 'row' : 'row-reverse'
+  }}>
+    <Box
+      component='img'
+      alt={t(project.name)}
+      src={project.image}
+      sx={{
+        width: '50%',
+        minWidth: '300px'
+      }} 
     />
-    <CardContent>
+    <div style={{flexGrow: 1}}>
+      <Typography variant='h3'>{t(project.name)}</Typography>
       <div className='TagContainer'>
         {project.tags.map(tag =>
-          <span key={project.name + '-' + tag} className='Tag'>{tag}</span>
+          <Chip key={project.name + '-' + tag} label={tag}></Chip>
         )}
       </div>
-      <h3 className='CardName'>{project.name}</h3>
-      <p className='CardDescription'>{project.description}</p>
-    </CardContent>
-    <CardActions>
-      <Button href={project.externalUrl} target='_blank'>{t('visit')}</Button>
+      <Typography variant='body2'>{t(project.description)}</Typography>
+      <Button style={{marginTop: 'auto'}} href={project.externalUrl} target='_blank'>{t('visit')}</Button>
       {project.github &&
         <Button href={project.github} target='_blank'>Github</Button>
       }
-    </CardActions>
-  </Card>);
+    </div>
+  </div>;
 };
 
 export default ProjectCard;

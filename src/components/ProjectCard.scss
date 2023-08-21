@@ -5,8 +5,15 @@
   overflow: hidden;
   .Tag {
     color: white;
-    background: #5800A1;
+    background: #BB82F5;
     padding: 0 8px 0 8px;
     border-radius: 50px;
   }
+}
+
+.cardContainer {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 48px;
+  flex-wrap: wrap;
 }
