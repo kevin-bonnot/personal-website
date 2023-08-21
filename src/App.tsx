@@ -10,6 +10,8 @@ import {
   Fab,
   Fade,
   Link,
+  MenuItem,
+  Select,
   SelectChangeEvent,
   ThemeProvider,
   Typography,
@@ -91,6 +93,18 @@ function App() {
           <KeyboardArrowUpIcon />
         </Fab>
       </ScrollTop>
+      <Box
+        sx={{
+          position: 'fixed',
+          left: '16px',
+          bottom: '16px'
+        }}
+      >
+        <Select value={language} onChange={handleLanguageChange}>
+          <MenuItem value='fr'>FR</MenuItem>
+          <MenuItem value='en'>EN</MenuItem>
+        </Select>
+      </Box>
     </ThemeProvider>
   );
 }
