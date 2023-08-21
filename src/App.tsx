@@ -66,7 +66,7 @@ function App() {
 
   return (
     <ThemeProvider theme={darkTheme}>
-      <Container sx={{ paddingBottom: 12 }} id="top-anchor">
+      <Container id="top-anchor">
         <div className="hero">
           <Typography variant='h1' textAlign='center'>Kévin Bonnot</Typography>
           <Typography variant='h2' textAlign='center' className='Job'>{t('jobTitle')}</Typography>
@@ -89,8 +89,8 @@ function App() {
         <Contact />
       </Container>
       <ScrollTop>
-        <Fab size="small" aria-label="scroll back to top">
-          <KeyboardArrowUpIcon />
+        <Fab size="small" aria-label="scroll back to top" color='primary'>
+          <KeyboardArrowUpIcon color='info' />
         </Fab>
       </ScrollTop>
       <Box

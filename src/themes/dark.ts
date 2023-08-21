@@ -7,7 +7,10 @@ export const darkThemeOptions: ThemeOptions = {
       main: '#BB82F5',
     },
     secondary: {
-      main: '#BB82F5',
+      main: '#69F597',
+    },
+    info:{
+      main: '#ffffff'
     },
     text: {
       secondary: '#BB82F5',
@@ -18,15 +21,19 @@ export const darkThemeOptions: ThemeOptions = {
   },
   typography: {
     h1: {
-      fontFamily: 'Oswald',
-      textTransform: 'uppercase'
+      fontFamily: 'Permanent Marker',
+      textTransform: 'uppercase',
+      color: '#69F597',
+      fontSize: 70
     },
     h2: {
       fontFamily: 'Oswald',
       textTransform: 'uppercase',
       color: '#BB82F5',
+      fontSize: 40
     },
     h3: {
+      color: '#69F597',
       fontFamily: 'Oswald',
     },
     body1: {
