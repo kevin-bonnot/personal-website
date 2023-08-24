@@ -10,11 +10,11 @@ import {
   Select, 
   Option, 
   Typography,
-  Link
 } from '@mui/joy';
 import ScrollTop from './components/ScrollTop.tsx';
 import Projects from './components/Projects.tsx';
 import Experience from './components/Experience.tsx';
+import NavMenu from './components/NavMenu.tsx';
 
 
 function App() {
@@ -29,8 +29,7 @@ function App() {
     const handleScroll = () => {
       if (heroRef.current) {
         const sectionRect = heroRef.current.getBoundingClientRect();
-        console.log(sectionRect.bottom, window.innerHeight);
-        if (sectionRect.top > 0) {
+        if (sectionRect.top > 31.5) {
           setShowMenu(false);
         } else {
           setShowMenu(true);
@@ -68,19 +67,11 @@ function App() {
           <Typography level='h2' textAlign='center' className='Job'>{t('jobTitle')}</Typography>
           <Typography level='body-md' marginY='100px'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</Typography>
           <div ref={heroRef} className="menu">
-            <ul>
-              <li><Link level='h4' href='#projects'>{t('myProjects')}</Link></li>
-              <li><Link level='h4' href='#experience'>{t('myExperience')}</Link></li>
-              <li><Link level='h4' href='#contact'>{t('contactMe')}</Link></li>
-            </ul>
+            <NavMenu />
           </div>
         </div>
         {showMenu && <div style={{backgroundColor: 'black', position: 'fixed', top: 0, right: 0, left: 0, zIndex: 1000}} className='menu'>
-          <ul>
-            <li><Link level='h4' href='#projects'>{t('myProjects')}</Link></li>
-            <li><Link level='h4' href='#experience'>{t('myExperience')}</Link></li>
-            <li><Link level='h4' href='#contact'>{t('contactMe')}</Link></li>
-          </ul>  
+          <NavMenu />  
         </div>}
         <Projects />
         <Experience />
