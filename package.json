@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emailjs/browser": "^3.11.0",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@fontsource/abril-fatface": "^5.0.5",
@@ -18,7 +19,7 @@
     "@fontsource/permanent-marker": "^5.0.8",
     "@fontsource/roboto": "^5.0.5",
     "@mui/icons-material": "^5.14.3",
-    "@mui/material": "^5.14.2",
+    "@mui/joy": "^5.0.0-beta.3",
     "@react-three/fiber": "^8.13.6",
     "@types/three": "^0.154.0",
     "@vercel/analytics": "^1.0.1",

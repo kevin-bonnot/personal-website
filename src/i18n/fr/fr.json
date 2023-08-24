@@ -15,5 +15,12 @@
   "visit": "Visiter",
   "underConstruction": "En construction",
   "myExperience": "Mon expérience",
-  "contactMe": "Me contacter"
+  "contactMe": "Me contacter",
+  "byMail": "Par mail",
+  "mySocials": "Mes réseaux",
+  "yourMail": "Votre mail",
+  "object": "Objet",
+  "message": "Message",
+  "name": "Votre nom",
+  "send": "Envoyer"
 }

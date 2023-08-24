@@ -1,7 +1,7 @@
 import Project from '../models/Project.ts';
 import './ProjectCard.scss';
 import {useTranslation} from 'react-i18next';
-import {Box, Button, Chip, Typography} from '@mui/material';
+import {Box, Button, Chip, Typography} from '@mui/joy';
 
 const ProjectCard = ({project, side}: {project: Project, side: 'left' | 'right'}) => {
   const {t} = useTranslation();
@@ -19,13 +19,13 @@ const ProjectCard = ({project, side}: {project: Project, side: 'left' | 'right'}
       }} 
     />
     <div style={{flexGrow: 1}}>
-      <Typography variant='h3'>{t(project.name)}</Typography>
+      <Typography level='h3'>{t(project.name)}</Typography>
       <div className='TagContainer'>
         {project.tags.map(tag =>
-          <Chip key={project.name + '-' + tag} label={tag}></Chip>
+          <Chip key={project.name + '-' + tag}>{tag}</Chip>
         )}
       </div>
-      <Typography variant='body2'>{t(project.description)}</Typography>
+      <Typography level='body-sm'>{t(project.description)}</Typography>
       <Button style={{marginTop: 'auto'}} href={project.externalUrl} target='_blank'>{t('visit')}</Button>
       {project.github &&
         <Button href={project.github} target='_blank'>Github</Button>

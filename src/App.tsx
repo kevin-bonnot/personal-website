@@ -2,25 +2,21 @@ import './App.scss';
 import Project from './models/Project.ts';
 import ProjectCard from './components/ProjectCard.tsx';
 import { useTranslation } from 'react-i18next';
-import {
-  Box,
-  Container,
-  createTheme,
-  Divider,
-  Fab,
-  Fade,
-  Link,
-  MenuItem,
-  Select,
-  SelectChangeEvent,
-  ThemeProvider,
-  Typography,
-  useScrollTrigger,
-} from '@mui/material';
-import { ReactElement, useEffect, useState } from 'react';
+import { Fragment, ReactElement, useEffect, useState } from 'react';
 import { darkThemeOptions } from './themes/dark.ts';
 import Contact from './components/Contact.tsx';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import { 
+  Box,
+  Container, 
+  CssVarsProvider, 
+  Divider, 
+  IconButton, 
+  Link, 
+  Typography, 
+  Select, 
+  Option 
+} from '@mui/joy';
 
 
 function App() {
@@ -58,40 +54,41 @@ function App() {
     i18n.changeLanguage(language);
   }, [language, i18n]);
 
-  const handleLanguageChange = (event: SelectChangeEvent) => {
-    setLanguage(event.target.value);
+  const handleLanguageChange = (_: React.SyntheticEvent | null, newValue: string | null) => {
+    !!newValue && setLanguage(newValue);
   };
 
-  const darkTheme = createTheme(darkThemeOptions);
+  // const darkTheme = createTheme(darkThemeOptions);
 
   return (
-    <ThemeProvider theme={darkTheme}>
+    <>
+    <CssVarsProvider theme={darkThemeOptions}>
       <Container id="top-anchor">
         <div className="hero">
-          <Typography variant='h1' textAlign='center'>Kévin Bonnot</Typography>
-          <Typography variant='h2' textAlign='center' className='Job'>{t('jobTitle')}</Typography>
-          <Typography variant='body1' marginY='100px'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</Typography>
+          <Typography level='h1' textAlign='center'>Kévin Bonnot</Typography>
+          <Typography level='h2' textAlign='center' className='Job'>{t('jobTitle')}</Typography>
+          <Typography level='body-md' marginY='100px'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</Typography>
           <div className="menu">
             <ul>
-              <li><Link color='secondary' href='#projects'>{t('myProjects')}</Link></li>
-              <li><Link color='secondary' href='#experience'>{t('myExperience')}</Link></li>
-              <li><Link color='secondary' href='#contact'>{t('contactMe')}</Link></li>
+              <li><Link href='#projects'>{t('myProjects')}</Link></li>
+              <li><Link href='#experience'>{t('myExperience')}</Link></li>
+              <li><Link href='#contact'>{t('contactMe')}</Link></li>
             </ul>
           </div>
         </div>
         <section className="sectionContainer" id='projects'>
-          <Typography variant='h2'>{t('myProjects')}</Typography>
-          {projects.map((project, index) => <>{index !== 0 && <Divider variant='middle' sx={{marginBottom: 3}}/>}<ProjectCard key={project.name} project={project} side={index % 2 === 0 ? 'left' : 'right'} /></>)}
+          <Typography level='h2'>{t('myProjects')}</Typography>
+          {projects.map((project, index) => <Fragment key={project.name}>{index !== 0 && <Divider sx={{marginBottom: 3}}/>}<ProjectCard project={project} side={index % 2 === 0 ? 'left' : 'right'} /></Fragment>)}
         </section>
         <section className="sectionContainer" id='experience'>
-          <Typography variant='h2'>{t('myExperience')}</Typography>
+          <Typography level='h2'>{t('myExperience')}</Typography>
         </section>
         <Contact />
       </Container>
       <ScrollTop>
-        <Fab size="small" aria-label="scroll back to top" color='primary'>
+        <IconButton aria-label="scroll back to top" color='primary' variant='solid'>
           <KeyboardArrowUpIcon color='info' />
-        </Fab>
+        </IconButton>
       </ScrollTop>
       <Box
         sx={{
@@ -101,20 +98,16 @@ function App() {
         }}
       >
         <Select value={language} onChange={handleLanguageChange}>
-          <MenuItem value='fr'>FR</MenuItem>
-          <MenuItem value='en'>EN</MenuItem>
+          <Option value='fr'>FR</Option>
+          <Option value='en'>EN</Option>
         </Select>
       </Box>
-    </ThemeProvider>
+    </CssVarsProvider>
+    </>
   );
 }
 
 const ScrollTop = ({children}: {children: ReactElement}) => {
-  const trigger = useScrollTrigger({
-    target: window,
-    disableHysteresis: true,
-    threshold: 100,
-  });
 
   const handleClick = () => {
       const anchor = document.getElementById('top-anchor');
@@ -124,14 +117,12 @@ const ScrollTop = ({children}: {children: ReactElement}) => {
       }
   };
   
-  return <Fade in={trigger}>
-    <Box
-      sx={{ position: 'fixed', bottom: 16, right: 16 }}
-      onClick={handleClick}
-    >
-      {children}
-    </Box>
-  </Fade>;
+  return <Box
+    sx={{ position: 'fixed', bottom: 16, right: 16 }}
+    onClick={handleClick}
+  >
+    {children}
+  </Box>;
 };
 
 export default App;
