@@ -1,7 +1,7 @@
 import Project from '../models/Project.ts';
 import './ProjectCard.scss';
 import {useTranslation} from 'react-i18next';
-import {Box, Button, Chip, Typography} from '@mui/joy';
+import {Box, Chip, Link, Typography} from '@mui/joy';
 
 const ProjectCard = ({project, side}: {project: Project, side: 'left' | 'right'}) => {
   const {t} = useTranslation();
@@ -14,21 +14,21 @@ const ProjectCard = ({project, side}: {project: Project, side: 'left' | 'right'}
       alt={t(project.name)}
       src={project.image}
       sx={{
-        width: '50%',
-        minWidth: '300px'
+        minWidth: '300px',
+        flex: 1
       }} 
     />
-    <div style={{flexGrow: 1}}>
+    <div style={{flex: 1}}>
       <Typography level='h3'>{t(project.name)}</Typography>
       <div className='TagContainer'>
         {project.tags.map(tag =>
-          <Chip key={project.name + '-' + tag}>{tag}</Chip>
+          <Chip color='primary' key={project.name + '-' + tag}>{tag}</Chip>
         )}
       </div>
       <Typography level='body-sm'>{t(project.description)}</Typography>
-      <Button style={{marginTop: 'auto'}} href={project.externalUrl} target='_blank'>{t('visit')}</Button>
+      <Link  level='h4' style={{marginTop: 'auto', marginRight: '16px'}} href={project.externalUrl} target='_blank'>{t('visit')}</Link>
       {project.github &&
-        <Button href={project.github} target='_blank'>Github</Button>
+        <Link level='h4' href={project.github} target='_blank'>Github</Link>
       }
     </div>
   </div>;
