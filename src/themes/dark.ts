@@ -5,7 +5,6 @@ export const darkThemeOptions: Theme = extendTheme({
   colorSchemes: {
     dark: {
       palette: {
-        mode: 'dark',
         primary: {
           400: '#BB82F5',
         },
@@ -39,6 +38,9 @@ export const darkThemeOptions: Theme = extendTheme({
       fontSize: '20px',
       lineHeight: 1.75,
       color: 'white'
+    },
+    'h4': {
+      color: '#BB82F5',
     }
   },
 });
